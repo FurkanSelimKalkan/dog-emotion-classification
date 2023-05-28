@@ -1,6 +1,6 @@
 class Config:
     # Dataset settings
-    data_dir = "../../data for emotion classification/dataset_cleaned_angry"
+    data_dir = "../../data for emotion classification/dataset_cleaned"
 
     # Model settings
     num_classes = 4
