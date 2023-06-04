@@ -48,7 +48,7 @@ if __name__ == "__main__":
     train.train_model(model, dataset, device, config)
 
     # Save the trained model
-    torch.save(model.state_dict(), "mobilenet26-05.pth")
+    torch.save(model.state_dict(), "cleanedDataAlexPre8-05.pth")
 
     # Test the model
     test.test_model(model, dataset.test_loader, device)
