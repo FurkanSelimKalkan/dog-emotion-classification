@@ -8,7 +8,6 @@ from log.Uresnet50.model import ImageClassifier3
 from log.Calexnet70Epochs.model import ImageClassifier4
 from log.Calexnet100Epochs.model import ImageClassifier5
 
-
 # Check for CUDA availability and define the device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -23,22 +22,23 @@ preprocess = transforms.Compose([
 ])
 
 # Path to the directory containing the images
-image_dir = "../../data for emotion classification/dataset_cleaned/test/relaxed"
-#image_dir = "../../data for emotion classification/dataset_cleaned/manual_testing/happy"
+# image_dir = "../../data for emotion classification/dataset_cleaned/test"
+image_dir = "../../data for emotion classification/dataset_cleaned/manual_testing/happy"
 
-# List of model classes and their corresponding file paths
+# List of model classes, their corresponding file paths, and softmax functions
 models = [
-    {"class": ImageClassifier(num_classes=4), "path": "log/Ualexnet/alexnet.pth"},
-    {"class": ImageClassifier3(num_classes=4), "path": "log/Uresnet50/resnet50.pth"},
-    {"class": ImageClassifier2(num_classes=4), "path": "log/Calexnet/alexnet.pth"},
-    {"class": ImageClassifier4(num_classes=4), "path": "log/Calexnet70Epochs/alexnet70.pth"},
-    {"class": ImageClassifier5(num_classes=4), "path": "log/Calexnet100Epochs/alexnet100.pth"},
+    {"class": ImageClassifier(num_classes=4), "path": "log/Ualexnet/alexnet.pth", "name": "Uncleaned Alexnet"},
+    {"class": ImageClassifier3(num_classes=4), "path": "log/Uresnet50/resnet50.pth", "name": "Uncleaned ResNet50"},
+    {"class": ImageClassifier2(num_classes=4), "path": "log/Calexnet/alexnet.pth", "name": "Cleaned Alexnet30"},
+    {"class": ImageClassifier4(num_classes=4), "path": "log/Calexnet70Epochs/alexnet70.pth", "name": "Cleaned Alexnet70"},
+    {"class": ImageClassifier5(num_classes=4), "path": "log/Calexnet100Epochs/alexnet100.pth", "name": "Cleaned Alexnet100"},
 ]
 
 # Iterate over the models and test each one
 for model_info in models:
     model_class = model_info["class"]
     model_path = model_info["path"]
+    model_name = model_info["name"]
 
     # Load the model
     model = model_class
@@ -63,34 +63,48 @@ for model_info in models:
             # Make predictions with the current model
             with torch.no_grad():
                 output = model(input_image)
-                _, predicted_class = torch.max(output, 1)
-                predicted_label = class_labels[predicted_class.item()]
-                #output_name = output_names[predicted_class.item()]
+                softmax = torch.nn.Softmax(dim=1)
+                probabilities = softmax(output)
 
             # Get the ground truth label from the folder name
             ground_truth_label = os.path.basename(root)
 
+            # Calculate the confidence value for each predicted class
+            confidence_values = probabilities[0].tolist()
+
             # Check if the prediction matches the ground truth
-           # print(f"Model: {model_path}")
-           # print(f"Image: {image_file}")
-           # print("Predicted:  ", predicted_label)
-            if predicted_label == ground_truth_label:
+            if class_labels[torch.argmax(probabilities, dim=1).item()] == ground_truth_label:
                 correct_predictions += 1
 
             total_images += 1
 
-            # Print the custom output names for the current model
-            #print(f"Folder: {ground_truth_label}")
-            #print(f"Predicted animal (Current Model): {output_name}")
-            #print("----------------------------------")
+            # Calculate the confidence value for each predicted class
+            confidence_values = probabilities[0].tolist()
 
-    # Calculate the accuracy only if there are images
+            # Get the predicted label
+            predicted_index = torch.argmax(probabilities, dim=1).item()
+            predicted_label = class_labels[predicted_index]
+
+            # Print the predicted label
+            print(f"Model:  {model_name}")
+            print(f"Predicted: {predicted_label}")
+            print(f"To Predict: {ground_truth_label}")
+
+            # Print the confidence values for each emotion
+            print(f"Image: {image_file}")
+            for i, emotion in enumerate(class_labels):
+                print(f"{emotion}: {confidence_values[i] * 100:.2f}%")
+
+            print("---------------------------")
+
+    # Calculate the accuracy
     if total_images != 0:
         accuracy = correct_predictions / total_images
+        print(f"Model: {model_path}")
         print(f"Accuracy: {accuracy * 100:.2f}%")
     else:
+        print(f"Model: {model_path}")
         print("No images found for evaluation.")
 
-    print(f"Model: {model_path}")
     print(f"Device: {device}")
     print("------------------------------")

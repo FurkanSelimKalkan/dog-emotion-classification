@@ -8,7 +8,7 @@ from model import ImageClassifier
 
 # Load the first trained model
 model_first = ImageClassifier(num_classes=4)
-model_first.load_state_dict(torch.load("mobilenet26-05.pth", map_location=torch.device('cuda')))
+model_first.load_state_dict(torch.load("cleanedDataAlexPre8-05.pth", map_location=torch.device('cuda')))
 #model_first.load_state_dict(torch.load("trained_model.pth", map_location=torch.device('cuda')))
 model_first.eval()  # Set the model to evaluation mode
 
