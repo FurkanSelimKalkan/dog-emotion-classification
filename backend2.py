@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 from PIL import Image
@@ -9,7 +11,8 @@ from log.Uresnet50.model import ImageClassifier3
 from log.Calexnet70Epochs.model import ImageClassifier4
 from log.Calexnet100Epochs.model import ImageClassifier5
 
-
+load_dotenv()
+host = os.getenv("HOST")
 
 # Load the models
 models = [
@@ -36,7 +39,7 @@ preprocess = transforms.Compose([
 ])
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 def predict_image(input_image):
     # Dictionary to hold the sum of confidence values for each class
@@ -53,11 +56,11 @@ def predict_image(input_image):
         predicted_confidence = probabilities[0][predicted_index].item()
 
         # Print the predicted label and confidence values for the current model
-        print(f"Model: {model_info['path']}")
-        print(f"Predicted: {class_labels[predicted_index]}")
-        for i, emotion in enumerate(class_labels):
-            print(f"{emotion}: {probabilities[0][i].item() * 100:.2f}%")
-        print("---------------------------")
+      #  print(f"Model: {model_info['path']}")
+      #  print(f"Predicted: {class_labels[predicted_index]}")
+      #  for i, emotion in enumerate(class_labels):
+        #    print(f"{emotion}: {probabilities[0][i].item() * 100:.2f}%")
+       # print("---------------------------")
 
         # Update confidence_sums
         confidence_sums[class_labels[predicted_index]] += predicted_confidence
@@ -72,6 +75,7 @@ def predict_image(input_image):
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    print("Incoming request")
     if 'image' not in request.files:
         return jsonify({'error': 'No image file uploaded'}), 400
 
@@ -83,6 +87,11 @@ def predict():
 
     return jsonify({'prediction': final_prediction, 'confidence': average_confidence}), 200
 
+@app.route('/test', methods=['get'])
+def test():
+    print("Incoming request")
+
+    return jsonify({'API WORKS'}), 200
 
 @app.route('/predict-multiple', methods=['POST'])
 def predict_multiple():
@@ -105,4 +114,5 @@ def predict_multiple():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host=host, port=5000)
+
