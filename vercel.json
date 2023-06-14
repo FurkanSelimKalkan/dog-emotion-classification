@@ -1,0 +1,14 @@
+ {
+     "builds": [
+         {
+             "src": "backend2.py",
+             "use": "@vercel/python"
+         }
+     ],
+     "routes": [
+         {
+             "src": "/predict",
+             "dest": "backend2.py"
+         }
+     ]
+ }
