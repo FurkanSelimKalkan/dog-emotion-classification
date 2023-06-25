@@ -94,3 +94,7 @@ is using the voting + avg confidence values implementation to predict
 the emotions. 
 
 
+## Files to credit
+[final_manual_test.py](final_manual_test.py) helped us to manually test the models and their accuracy with manually selected and downloaded images in bulk
+
+
