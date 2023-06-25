@@ -5,7 +5,7 @@
 * Python 3.9
 * Pytorch
 * Summarywriter (to create logs)
-* Pre-trained models (alexnet)
+* Pre-trained models (AlexNet, ResNet and a lot more which are not pushed to the Repository)
 
 ## Training models
 Starting from [main.py](main.py), [train.py](train.py), 
