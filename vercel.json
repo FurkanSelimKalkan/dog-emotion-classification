@@ -9,9 +9,10 @@
          {
              "src": "/predict",
              "dest": "backend2.py"
-         },        
+         },
        {
-             "src": "/test",
-             "dest": "backend2.py"
+         "src": "/test",
+         "dest": "backend2.py"
+       }
      ]
  }
