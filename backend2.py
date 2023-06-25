@@ -11,8 +11,7 @@ from log.Uresnet50.model import ImageClassifier3
 from log.Calexnet70Epochs.model import ImageClassifier4
 from log.Calexnet100Epochs.model import ImageClassifier5
 
-load_dotenv()
-host = os.getenv("HOST")
+
 
 # Load the models
 models = [
@@ -114,5 +113,5 @@ def predict_multiple():
 
 
 if __name__ == '__main__':
-    app.run(host=host, port=5000)
+    app.run()
 
