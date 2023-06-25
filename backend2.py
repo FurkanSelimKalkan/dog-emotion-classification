@@ -25,7 +25,7 @@ models = [
 
 # Load model weights
 for model_info in models:
-    model_info["model"].load_state_dict(torch.load(model_info["path"], map_location=torch.device('cuda')))
+    model_info["model"].load_state_dict(torch.load(model_info["path"], map_location=torch.device('cpu')))
     model_info["model"].eval()
 
 # Define the class labels and their corresponding custom output names
