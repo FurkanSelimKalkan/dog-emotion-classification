@@ -69,14 +69,14 @@ but then with voting + calculating avg confidence sums we got the best restults
 
 ## Scrips to manually test images
 
-### First script
+### First script (Voting / Ensembling)
 [ensembling.py](ensembling.py) 
-It calculates the average confidence values for each model and 
-determines the final prediction based on the highest average 
-confidence value. It tracks the total number of correct predictions
+It predicts the emotion for each model and 
+determines the final prediction based on the most common emotion.
+It tracks the total number of correct predictions
 and the total number of images processed to calculate accuracy.
 
-### Second script
+### Second script (Avg Sum of Confidence Values)
 [final_man_ensembled_weighted_voting.py](final_man_ensembled_weighted_voting.py)
  uses a dictionary, model_performance, to track the performance 
 of each model separately. For each model, it tracks the number 
