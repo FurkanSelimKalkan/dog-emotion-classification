@@ -1,18 +1,11 @@
- {
-     "builds": [
-         {
-             "src": "backend2.py",
-             "use": "@vercel/python"
-         }
-     ],
-     "routes": [
-         {
-             "src": "/predict",
-             "dest": "backend2.py"
-         },
-       {
-         "src": "/test",
-         "dest": "backend2.py"
-       }
-     ]
- }
+{
+  "builds": [
+    {
+      "src": "backend2.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/backend2.py" }
+  ]
+}
