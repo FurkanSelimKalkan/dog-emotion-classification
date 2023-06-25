@@ -10,7 +10,7 @@
 ## Training models
 Starting from [main.py](main.py), [train.py](train.py), 
 [test.py](test.py),[dataset.py](dataset.py),[model.py](model.py),
-are part of the training progress. [config.py](config.py) contains
+are all part of the training progress. [config.py](config.py) contains
 all the training settings, such as batch size, epochs and some more.
 At the end of the epochs we create a .pth file to save the trained weights
 and reuse them in our backend [backend2.py](backend2.py).
