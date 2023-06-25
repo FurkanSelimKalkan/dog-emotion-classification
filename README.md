@@ -6,7 +6,7 @@ The Dog Emotion Classification AI is a machine learning project that aims to acc
 
 ## Features
 
-Emotion Classification: The AI model can classify dogs into different emotional states such as happy, sad, excited, calm, etc.
+Emotion Classification: The AI model can classify dogs into different emotional states such as happy, sad, angry and relaxed.
 Image Input: The system accepts images of dogs as input for emotion classification.
 Pre-Trained Model: The AI system utilizes a pre-trained deep learning model that has been trained on a large dataset of labeled dog images to ensure accurate predictions.
 
