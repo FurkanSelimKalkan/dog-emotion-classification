@@ -58,9 +58,9 @@ prediction. With this approach we could get an accuracy increase by
 *	sad: 75%
 *	relaxed: 48%
 
-but then with voting + calculating avg confidence sums we got the best restults
+but then with calculating the avg confidence sums we got the best restults
 
-##### Ensemlbe + Confidence Values:AlexNet1,AlexNet2,AlexNet3,AlexNet4,ResNet: (avg: 62% accuracy)
+##### Ensemlbe Confidence Values:AlexNet1,AlexNet2,AlexNet3,AlexNet4,ResNet: (avg: 62% accuracy)
 
 *	angry: 50%
 *	happy: 72%
