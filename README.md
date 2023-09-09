@@ -1,5 +1,4 @@
-# dog-emotion-classification project by HTW Students
-
+# dog-emotion-classification project
 
 
 The Dog Emotion Classification AI is a machine learning project that aims to accurately classify the emotions of dogs based on input images. By leveraging deep learning techniques and a trained model, the AI system can analyze images of dogs and predict their emotional states.
